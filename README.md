@@ -24,16 +24,17 @@ Instead of tightly coupling the system with a specific payment method, we use an
 ## 🏗️ Project Structure
 src/
 ├── App.java
-├── Payment.java
-├── CreditCard.java
-└── DebitCard.java
+├── IPayment.java
+├── PaymentService.java
+├── CreditCardPayment.java
+└── DebitCardPayment.java
 
 ---
 
 ## ⚙️ How It Works
 
-1. `Payment` is an interface.
-2. `CreditCard` and `DebitCard` implement `Payment`.
+1. `IPayment` is an interface.
+2. `CreditCard` and `DebitCard` implement `IPayment`.
 3. The main class injects the required payment method.
 4. The system processes payment without depending on concrete classes.
 
@@ -44,6 +45,7 @@ src/
 ### Constructor Injection
 
 ```java
-Payment payment = new CreditCard();
-ShoppingCart cart = new ShoppingCart(payment);
-cart.checkout();
+IPayment payment = new CreditCardPayment();
+PaymentService service = new PaymentService(payment);
+service.Service(500.00);
+
